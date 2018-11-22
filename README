@@ -1,0 +1,45 @@
+WHELMER
+
+whelmer is like clouded plain except round
+
+just circles, .. rings... of different colors, arising from the center
+moving at different speeds
+fading away when they get too far from the center, when they get near the edge
+(SHOULD WE HAVE 2-WAY RING MOVEMENT?)
+
+interacting via overlap
+  which manifests as color blend
+
+the field is black
+so we can work with a square. because the edges will be hidden
+
+and the whole field of pixel-squares is then interpreted as sound
+or maybe we'll interpret the circles that way
+I'm not sure.
+
+1) make the field. the black square
+2) make a fuzzy circle
+3) make it move, arise ... fade in and then fade out
+  maybe different rates of fade
+
+ring differences
+  color
+  thickness
+  speed
+  rate of fade, outer and inner edge
+  part of a sequence.
+    what we'll have is a list full of rings
+    each ring has a birthday
+    we increment through time at 60 ticks per second
+    when a we hit a ring's birthday it manifests in the center
+      and at every subsequent tick it moves outward, 
+      eventually disappearing from view and being removed from the list
+    rings who's birthday has not been hit just hang out in the list waiting to be born
+      thus we can create patterns, sequences or whatever. 
+      Probably in reverse, starting at NOW-1 and adding a new ring at every 100 ticks into the past for 100 ticks or whatever.
+       
+
+
+
+ 
+
