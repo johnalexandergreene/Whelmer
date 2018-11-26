@@ -37,6 +37,62 @@ ring differences
     rings who's birthday has not been hit just hang out in the list waiting to be born
       thus we can create patterns, sequences or whatever. 
       Probably in reverse, starting at NOW-1 and adding a new ring at every 100 ticks into the past for 100 ticks or whatever.
+      
+our rings are solid color with faded edges, right?
+so basically a color and an alpha
+
+a RING is a drawing function 
+    d : distance from center
+    t : time
+    define value and intensity at each pixel in range
+    
+-----------------------
++++++++++++++++++++++++
+
+interface Whelmer{
+  double getMaxRadius(); //the visual and logical edge of this system. rings that pass beyond it tend to disappear
+  void incrementTime();
+  List<Ring> getRings();
+  int getTime();
+  Cell[][] getState(); //a 2d array of cells. 
+    //each cell of the system holds the presence of the background and any Rings that touch that cell.
+    // at a cell, the background only manifests to the degree 1.0-sum_of_all_ring_presences. 
+    //So if there are enough rings present then the background is completely hidden.
+} 
+  
+interface Cell{
+  int getX();
+  int getY();
+  List<RingPresence> getPresences();
+}
+
+interface Ring{
+  Whelmer getWhelmer(); //the whelmer of which this ring is a component
+  double getFrontEdge(); //a radius
+  double getBackEdge(); //a radius
+  double getFrontFade(); //distance over which the edge fades
+  double getBackFade();
+  double getFrontSpeed(); //rate of change of front radius per tick. Positive speed means movement outward from center. Can be negative.
+  double getBackSpeed();
+  int getBirthday(); //the value of whelmer.getTime() when this ring was created.
+  boolean killMe(); //at some point a ring gets destroyed. 
+    //It passes outside the geometry of the whelmer or something. 
+    //At that point we might signal that we are ready to be discarded from the whelmer system.
+  double getValue(); // an abstract value in range 0<=n<1 distinguishing this ring. 
+    //It can be translated into a color or sound.  
+    //It can be blended with other ring values to create a group value   
+  
+}
+
+interface imageRenderer{
+
+  BufferedImage getImage(Whelmer whelmer);
+
+}
+    
+    
+  
+  
        
 
 
