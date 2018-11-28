@@ -1,6 +1,8 @@
-package org.fleen.whelmer.videoCreationSystems;
+package org.fleen.whelmer.videoCreationSystems.vcs_test000;
 
-import sun.net.ProgressListener;
+import org.fleen.whelmer.core.ProgressListener;
+import org.fleen.whelmer.core.Whelmer;
+import org.fleen.whelmer.videoCreationSystems.UI;
 
 public class VCSTest000{
   
@@ -13,7 +15,7 @@ public class VCSTest000{
   private static final String WORKINGDIR="/home/john/Desktop/cpexport"; 
   
   private static ProgressListener listener=new ProgressListener(){
-    public void notify(CloudedPlain cloudedplain){
+    public void timeIncremented(Whelmer whelmer){
       ui.repaint();}};
   
   /*
@@ -22,8 +24,8 @@ public class VCSTest000{
    * 
    */
   public static final void main(String[] a){
-    CloudedPlain cp=new CloudedPlain(
-      WIDTH,HEIGHT,DURATION,
+    Whelmer cp=new Whelmer(
+      SIZE,DURATION,
       new StripeGenerator0(),
       WORKINGDIR,
       new VideoRenderer0(),new VideoExporter0(),
