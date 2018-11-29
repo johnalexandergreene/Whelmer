@@ -1,73 +1,107 @@
 package org.fleen.whelmer.core;
 
-public interface Ring{
+public abstract class Ring{
   
   /*
-   * the whelmer of which this ring is a component
+   * ################################
+   * CONSTRUCTOR
+   * ################################
    */
-  Whelmer getWhelmer();
-
-  /*
-   * the inner edge
-   * a radius, in terms of whelmer radius
-   * the inner edge radius is always less than the outer edge radius
-   */
-  double getInnerEdge();
+ 
+  public Ring(Whelmer whelmer){
+    this.whelmer=whelmer;}
   
   /*
-   * the outer edge
-   * a radius, in terms of whelmer radius
-   * the outer edge radius is always greater than the inner edge radius
+   * ################################
+   * WHELMER
+   * ################################
    */
-  double getOuterEdge();
-
-  /*
-   * the distance from the inner edge to the outer edge 
-   * thickness is always >= innerfade+outerfade
-   */
-  double getThickness();
+  
+  public Whelmer whelmer;
   
   /*
-   * distance over which the outer edge fades (to 0 at exact outer radius)
-   * an interval, in terms of whelmer radius
+   * ################################
+   * BIRTHDAY AND AGE
+   * ################################
    */
-  double getOuterFade(); //distance over which the edge fades
-  
-  /*
-   * distance over which the inner edge fades (to 0 at exact inner radius)
-   * an interval, in terms of whelmer radius
-   */
-  double getInnerFade();
-  
-  /*
-   * change of outer radius per time interval. 
-   * Positive speed means movement outward from center. Can be negative.
-   */
-  double getOuterSpeed();
-  
-  /*
-   * change of inner radius per time interval. 
-   * Positive speed means movement outward from center. Can be negative.
-   */
-  double getInnerSpeed();
   
   /*
    * the value of whelmer.getTime() when this ring was created.
    */
-  int getBirthday();
+  public int birthday;
+  
+  public int getAge(){
+    return whelmer.time-birthday;}
+  
+  /*
+   * ################################
+   * DESTROY ME
+   * ################################
+   */
   
   /*
    * at some point a ring gets destroyed. 
    * Maybe it passes outside the geometry of the whelmer or something.... 
    * At that point we might signal that we are ready to be discarded from the whelmer system.
+   * 
+   * This is one of the 3 important functions that characterize this ring, defining its behavior
    */
-  boolean killMe(); 
+  public abstract boolean destroyMe(); 
   
   /*
-   * an abstract value in range 0<=n<1 distinguishing this ring. 
-   * It can be translated into a color (H in HSB?) or sound (a base frequency?).
-   * It can be blended with other ring values to create a group value 
+   * ################################
+   * VALUE
+   * ################################
    */
-  double getValue();   
+  
+  /*
+   * Get VALUE at the specified distance.
+   *  
+   * By distance we mean the distance of a cell from the center of the whelmer. 
+   * That is, the distance from the center point of the cell square to the center point of the whelmer square.
+   * 
+   * So in calculating VALUE we consider
+   *   cell distance
+   *   ring age
+   *   
+   * VALUE is an abstract, general-purpose value in range [0,1] 
+   * It can be translated into a color (H in HSB?) or sound (a base frequency?).
+   * It can be blended with other ring values 
+   * 
+   * This is one of the 3 important functions that characterize this ring, defining its behavior
+   */
+  public abstract double getValue(double d);
+  
+  /*
+   * ################################
+   * INTENSITY
+   * ################################
+   */
+  
+  /*
+   * Get INTENSITY at the specified distance.
+   *  
+   * By distance we mean the distance of a cell from the center of the whelmer. 
+   * That is, the distance from the center point of the cell square to the center point of the whelmer square.
+   * 
+   * So in calculating INTENSITY we consider
+   *   cell distance
+   *   ring age
+   *   
+   * We're talking the INTENSITY of VALUE. Like a light. VALUE is the color and INTENSITY is the brightness. 
+   * 
+   * This is one of the 3 important functions that characterize this ring, defining its behavior
+   */
+  public abstract double getIntensity(double d);
+  
+  /*
+   * ################################
+   * PRESENCE
+   * ################################
+   */
+  
+  public RingPresence getPresence(Cell cell){
+    RingPresence p=new RingPresence(this,getValue(cell.distance),getIntensity(cell.distance));
+    return p;}
   
 }

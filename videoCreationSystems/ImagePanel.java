@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 
-import org.fleen.cloudedPlain.core.CloudedPlain;
+import org.fleen.whelmer.core.Whelmer;
 
 public class ImagePanel extends JPanel{
 
@@ -18,16 +18,16 @@ public class ImagePanel extends JPanel{
    * ################################
    */
   
-  ImagePanel(CloudedPlain cloudedplain){
-    this.cloudedplain=cloudedplain;}
+  ImagePanel(Whelmer whelmer){
+    this.whelmer=whelmer;}
   
   /*
    * ################################
-   * CLOUDED PLAIN
+   * WHELMER
    * ################################
    */
   
-  CloudedPlain cloudedplain;
+  Whelmer whelmer;
   
   /*
    * ################################
@@ -39,8 +39,8 @@ public class ImagePanel extends JPanel{
   
   public void paint(Graphics g){
     super.paint(g);
-    if(cloudedplain.videoframe==null)return;
+    if(whelmer.videoframe==null)return;
     Graphics2D g2=(Graphics2D)g;
-    g2.drawImage(cloudedplain.videoframe,OFFSETALITTLE,null);}
+    g2.drawImage(whelmer.videoframe,OFFSETALITTLE,null);}
 
 }

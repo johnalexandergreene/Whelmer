@@ -1,5 +1,6 @@
 package org.fleen.whelmer.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cell{
@@ -10,19 +11,8 @@ public class Cell{
    * ################################
    */
   
-  public Cell(Whelmer whelmer,int x,int y){
-    this.whelmer=whelmer;
-    this.x=x;
-    this.y=y;
-    initDistance();}
-  
-  /*
-   * ################################
-   * WHELMER
-   * ################################
-   */
-  
-  Whelmer whelmer;
+  public Cell(double distance){
+    this.distance=distance;}
   
   /*
    * ################################
@@ -30,24 +20,8 @@ public class Cell{
    * ################################
    */
   
-  //coors
-  int x,y;
   //distance of this cell from from whelmer center in terms of whelmer radius (ie span/2), range [0,1]
-  double distance;
-  
-  public int getX(){
-    return x;}
-  
-  public int getY(){
-    return y;}
-  
-  private void initDistance(){
-    //get whelmer center
-    double wcxy=((double)whelmer.getSize())/2;
-    //get cell center
-    double ccx=
-    
-  }
+  public double distance;
   
   /*
    * ################################
@@ -59,7 +33,9 @@ public class Cell{
    * look at every ring in the whelmer and get its presence value at this cell
    */
   public List<RingPresence> getPresences(Whelmer whelmer){
-    
-  }
+    List<RingPresence> p=new ArrayList<RingPresence>();
+    for(Ring r:whelmer.rings)
+      p.add(r.getPresence(this));
+    return p;}
 
 }

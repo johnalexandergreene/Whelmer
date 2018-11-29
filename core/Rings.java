@@ -7,9 +7,11 @@ import java.util.List;
  * logic for creating and destroying rings
  * ring access
  */
-public interface Rings{
-  
+public interface Rings extends List<Ring>{
+ 
   void setWhelmer(Whelmer whelmer);
+  
+  Whelmer getWhelmer();
   
   /*
    * create 0..n rings
@@ -20,7 +22,5 @@ public interface Rings{
    * destroy 0..n rings
    */
   void conditionallyDestroyRings();
-  
-  List<Ring> getRings();
 
 }

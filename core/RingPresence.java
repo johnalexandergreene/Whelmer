@@ -1,12 +1,29 @@
 package org.fleen.whelmer.core;
 
-public interface RingPresence{
-  
-  Ring getRing();
+public class RingPresence{
   
   /*
-   * range 0 (not even touching) to 1 (total nonfadey coverage)
+   * ################################
+   * CONSTRUCTOR
+   * ################################
    */
-  double getIntensity();
+  
+  public RingPresence(Ring ring,double value,double intensity){
+    this.ring=ring;
+    this.value=value;
+    this.intensity=intensity;}
+  
+  /*
+   * ################################
+   * PARAMS
+   * ################################
+   */
+  
+  public Ring ring;
+  
+  /*
+   * range [0,1]
+   */
+  public double value,intensity;
 
 }
