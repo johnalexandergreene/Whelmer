@@ -1,6 +1,7 @@
 package org.fleen.whelmer.videoCreationSystems.vcs_test000;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.fleen.whelmer.core.Ring;
 import org.fleen.whelmer.core.Rings;
@@ -30,8 +31,12 @@ public class Rings0 extends ArrayList<Ring> implements Rings{
    */
   
   public void conditionallyCreateRings(){
-    if(isEmpty())
-      add(new Ring0(whelmer));
+    if(whelmer.time%7==0){
+      System.out.println("created ring");
+      add(new Ring0(whelmer));}
+    if(whelmer.time%21==0){
+      System.out.println("created ring");
+      add(new Ring1(whelmer));}
     
   }
 
@@ -42,8 +47,14 @@ public class Rings0 extends ArrayList<Ring> implements Rings{
    */
   
   public void conditionallyDestroyRings(){
-    // TODO Auto-generated method stub
-    
-  }
+    Iterator<Ring> i=iterator();
+    Ring r;
+    int destroyed=0;
+    while(i.hasNext()){
+      r=i.next();
+      if(r.destroyMe()){
+        i.remove();
+        destroyed++;}}
+    if(destroyed>0)System.out.println("destroyed="+destroyed);}
 
 }

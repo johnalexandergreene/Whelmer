@@ -9,7 +9,8 @@ public abstract class Ring{
    */
  
   public Ring(Whelmer whelmer){
-    this.whelmer=whelmer;}
+    this.whelmer=whelmer;
+    birthday=whelmer.time;}
   
   /*
    * ################################

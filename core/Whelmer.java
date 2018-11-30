@@ -42,9 +42,13 @@ public abstract class Whelmer{
     System.out.println("whelmer run : duration="+duration);
     for(int i=0;i<duration;i++){
       try{
-        Thread.sleep(500);
+        Thread.sleep(5);
       }catch(Exception x){}
-      incrementTime();}}
+      incrementTime();}
+    //
+    System.out.println("exporting audio");
+    exportAudio();
+    progresslistener.finished(this);}
   
   /*
    * ################################
@@ -76,24 +80,16 @@ public abstract class Whelmer{
    * ################################
    */
   
-  int time=0,duration;
-  
-  public int getTime(){
-    return time;}
-
+  public int time=-1,duration;
+ 
   public void incrementTime(){
-    if(time%10==0)System.out.println("time="+time);
     time++;
-    if(time<duration){
+    if(time%10==0)System.out.println("time="+time);
       renderAndExportVideoFrame();
       renderAndStoreAudioFrame();
       rings.conditionallyCreateRings();
       rings.conditionallyDestroyRings();
-      progresslistener.timeIncremented(this);
-    }else{
-      System.out.println("exporting audio");
-      exportAudio();
-      progresslistener.finished(this);}}
+      progresslistener.timeIncremented(this);}
   
   /*
    * ################################
@@ -118,11 +114,17 @@ public abstract class Whelmer{
       for(int y=0;y<size;y++){
         cells[x][y]=new Cell(getCellDistance(wc,x,y));}}}
   
+  /*
+   * remember!
+   * our distances are in terms of size/2.
+   * ie, in range 0..1
+   */
   private double getCellDistance(double wc,double x,double y){
     double 
       cx=x+0.5,
       cy=y+0.5,
       d=GD.getDistance_PointPoint(wc,wc,cx,cy);
+    d/=((double)size)/2;
     return d;}
   
   /*
@@ -153,7 +155,7 @@ public abstract class Whelmer{
   
   private void exportVideoFrameImage(){
     if(exportdir!=null&&videoexporter!=null)
-      videoexporter.exportVideoFrame(this);}
+      videoexporter.exportVideoFrame(videoframe,time,exportdir);}
   
   /*
    * ################################

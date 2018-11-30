@@ -3,7 +3,7 @@ package org.fleen.whelmer.videoCreationSystems.vcs_test000;
 import org.fleen.whelmer.core.Ring;
 import org.fleen.whelmer.core.Whelmer;
 
-public class Ring0 extends Ring{
+public class Ring1 extends Ring{
 
   /*
    * ################################
@@ -11,7 +11,7 @@ public class Ring0 extends Ring{
    * ################################
    */
   
-  public Ring0(Whelmer whelmer){
+  public Ring1(Whelmer whelmer){
     super(whelmer);}
 
   /*
@@ -34,7 +34,7 @@ public class Ring0 extends Ring{
    */
   
   public double getValue(double d){
-    return 0.2;}
+    return 0.6;}
 
   /*
    * ################################
@@ -64,7 +64,7 @@ public class Ring0 extends Ring{
    * ################################
    */
   
-  double speed=0.013,thickness=0.06,blur=0.01;
+  double speed=0.009,thickness=0.13,blur=0.02;
   
   double getFrontEdge(){
     double a=speed*((double)getAge());

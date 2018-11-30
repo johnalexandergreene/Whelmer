@@ -38,12 +38,15 @@ public class VideoRenderer0 implements VideoRenderer{
    * b=averaged intensities
    */
   private int getColor(List<RingPresence> presences){
-    double av=0,ai=0;
+    double av=0,ai=0,nonzerointensitycount=0;
+    //average presences with nonzero intensity
     for(RingPresence p:presences){
-      av+=p.value;
-      ai+=p.intensity;}
-    av/=((double)presences.size());
-    ai/=((double)presences.size());
+      if(p.intensity>0){
+        nonzerointensitycount++;
+        av+=p.value;
+        ai+=p.intensity;}}
+    av/=nonzerointensitycount;
+    ai/=nonzerointensitycount;
     int rgb=Color.HSBtoRGB((float)av,(float)1,(float)ai);
     return rgb;}
 
