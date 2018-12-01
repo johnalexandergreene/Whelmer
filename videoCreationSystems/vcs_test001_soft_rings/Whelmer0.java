@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test000;
+package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
 
 import java.io.File;
 

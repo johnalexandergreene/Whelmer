@@ -51,49 +51,27 @@ public abstract class Ring{
   
   /*
    * ################################
-   * VALUE
+   * DELTA
    * ################################
    */
   
   /*
-   * Get VALUE at the specified distance.
+   * Get DELTA at the specified distance.
    *  
    * By distance we mean the distance of a cell from the center of the whelmer. 
    * That is, the distance from the center point of the cell square to the center point of the whelmer square.
    * 
-   * So in calculating VALUE we consider
+   * So in calculating DELTA we consider
    *   cell distance
    *   ring age
    *   
-   * VALUE is an abstract, general-purpose value in range [0,1] 
+   * DELTA is an abstract, general-purpose value in range [0,1] 
    * It can be translated into a color (H in HSB?) or sound (a base frequency?).
    * It can be blended with other ring values 
    * 
-   * This is one of the 3 important functions that characterize this ring, defining its behavior
+   * This is one of the 2 important functions that characterize this ring, defining its behavior
    */
-  public abstract double getValue(double d);
-  
-  /*
-   * ################################
-   * INTENSITY
-   * ################################
-   */
-  
-  /*
-   * Get INTENSITY at the specified distance.
-   *  
-   * By distance we mean the distance of a cell from the center of the whelmer. 
-   * That is, the distance from the center point of the cell square to the center point of the whelmer square.
-   * 
-   * So in calculating INTENSITY we consider
-   *   cell distance
-   *   ring age
-   *   
-   * We're talking the INTENSITY of VALUE. Like a light. VALUE is the color and INTENSITY is the brightness. 
-   * 
-   * This is one of the 3 important functions that characterize this ring, defining its behavior
-   */
-  public abstract double getIntensity(double d);
+  public abstract double getDelta(double d);
   
   /*
    * ################################
@@ -102,7 +80,7 @@ public abstract class Ring{
    */
   
   public RingPresence getPresence(Cell cell){
-    RingPresence p=new RingPresence(this,getValue(cell.distance),getIntensity(cell.distance));
+    RingPresence p=new RingPresence(this,getDelta(cell.distance));
     return p;}
   
 }

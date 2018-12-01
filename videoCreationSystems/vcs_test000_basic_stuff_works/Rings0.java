@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test000;
+package org.fleen.whelmer.videoCreationSystems.vcs_test000_basic_stuff_works;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,12 +31,14 @@ public class Rings0 extends ArrayList<Ring> implements Rings{
    */
   
   public void conditionallyCreateRings(){
-    if(whelmer.time%7==0){
+    if(whelmer.time%33==0){
       System.out.println("created ring");
       add(new Ring0(whelmer));}
-    if(whelmer.time%21==0){
+    if(whelmer.time%88==0){
       System.out.println("created ring");
-      add(new Ring1(whelmer));}
+      add(new Ring1(whelmer));
+      
+    }
     
   }
 

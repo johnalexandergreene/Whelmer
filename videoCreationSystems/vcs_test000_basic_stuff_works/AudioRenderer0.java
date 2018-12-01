@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test000;
+package org.fleen.whelmer.videoCreationSystems.vcs_test000_basic_stuff_works;
 
 import org.fleen.whelmer.core.AudioRenderer;
 import org.fleen.whelmer.core.Whelmer;

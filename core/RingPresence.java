@@ -8,10 +8,9 @@ public class RingPresence{
    * ################################
    */
   
-  public RingPresence(Ring ring,double value,double intensity){
+  public RingPresence(Ring ring,double delta){
     this.ring=ring;
-    this.value=value;
-    this.intensity=intensity;}
+    this.delta=delta;}
   
   /*
    * ################################
@@ -24,6 +23,6 @@ public class RingPresence{
   /*
    * range [0,1]
    */
-  public double value,intensity;
+  public double delta;
 
 }
