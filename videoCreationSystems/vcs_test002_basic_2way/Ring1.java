@@ -1,9 +1,9 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
+package org.fleen.whelmer.videoCreationSystems.vcs_test002_basic_2way;
 
 import org.fleen.whelmer.core.Ring;
 import org.fleen.whelmer.core.Whelmer;
 
-public class Ring0 extends Ring{
+public class Ring1 extends Ring{
 
   /*
    * ################################
@@ -11,7 +11,7 @@ public class Ring0 extends Ring{
    * ################################
    */
   
-  public Ring0(Whelmer whelmer){
+  public Ring1(Whelmer whelmer){
     super(whelmer);}
 
   /*
@@ -20,10 +20,10 @@ public class Ring0 extends Ring{
    * ################################
    */
   
+  //cuz it moves in reverse
   public boolean destroyMe(){
-    double a=getBackEdge();
-    if(a>1){
-      System.out.println("des : backedge="+a);
+    double a=getFrontEdge();
+    if(a<0){
       return true;}
     return false;}
 
@@ -39,26 +39,25 @@ public class Ring0 extends Ring{
     double z=thickness/2;
     double c=(z-b)/z;
     if(d<getFrontEdge()&&d>getBackEdge())
-      return 0.4*c;
+      return 0.2*c;
     else
       return 0;
     }
-  
+
   /*
    * ################################
    * GEOMETRY
    * ################################
    */
   
-  double speed=0.002,thickness=0.66,blur=0.01;
+  double speed=0.006,thickness=0.33;
   
   double getFrontEdge(){
-    double a=speed*((double)getAge());
+    double a=1.0-speed*((double)getAge());
     return a;}
   
   double getBackEdge(){
     double a=getFrontEdge()-thickness;
-//    if(a<0)a=0;
     return a;}
 
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.fleen.geom_2D.GD;
 
-public abstract class Whelmer{
+public class Whelmer{
 
   /*
    * ################################
@@ -41,9 +41,9 @@ public abstract class Whelmer{
   public void run(){
     System.out.println("whelmer run : duration="+duration);
     for(int i=0;i<duration;i++){
-      try{
-        Thread.sleep(5);
-      }catch(Exception x){}
+//      try{
+//        Thread.sleep(5);
+//      }catch(Exception x){}
       incrementTime();}
     //
     System.out.println("exporting audio");
@@ -118,13 +118,14 @@ public abstract class Whelmer{
    * remember!
    * our distances are in terms of size/2.
    * ie, in range 0..1
+   * clip everything bigger than 1
    */
-  private double getCellDistance(double wc,double x,double y){
+  private double getCellDistance(double whelmercenter,double x,double y){
     double 
-      cx=x+0.5,
-      cy=y+0.5,
-      d=GD.getDistance_PointPoint(wc,wc,cx,cy);
-    d/=((double)size)/2;
+      cellcenterx=x+0.5,
+      cellcentery=y+0.5,
+      d=GD.getDistance_PointPoint(whelmercenter,whelmercenter,cellcenterx,cellcentery);
+    d=(d*2)/((double)size);//normalize it to [0,1]
     return d;}
   
   /*

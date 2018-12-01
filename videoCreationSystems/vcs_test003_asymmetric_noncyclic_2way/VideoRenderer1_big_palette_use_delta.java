@@ -1,11 +1,10 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
+package org.fleen.whelmer.videoCreationSystems.vcs_test003_asymmetric_noncyclic_2way;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import org.fleen.geom_2D.GD;
 import org.fleen.whelmer.core.Cell;
 import org.fleen.whelmer.core.RingPresence;
 import org.fleen.whelmer.core.VideoRenderer;
@@ -45,15 +44,22 @@ public class VideoRenderer1_big_palette_use_delta implements VideoRenderer{
   private Color getColor(Cell cell,double edgefade,Whelmer whelmer){
     double edgefadefactor=1.0;
     if(cell.distance>edgefade){
-      double a=1.0-cell.distance;
-      if(a<0)a=0;
-      edgefadefactor=a/(1.0-edgefade);}
+      if(cell.distance>1.0){
+        edgefadefactor=0;
+      }else{
+        double a=cell.distance-edgefade;
+        double b=a/(1.0-edgefade);
+        double c=1.0-b;
+        if(c<0)c=0;
+        edgefadefactor=c;}}
+    //
     List<RingPresence> presences=cell.getPresences(whelmer);
     double summeddelta=0;
     int i;
-    //average presences with nonzero intensity
-    for(RingPresence p:presences){
-        summeddelta+=p.delta*edgefadefactor;}
+    //sum deltas
+    for(RingPresence p:presences)
+        summeddelta+=p.delta;
+    summeddelta*=edgefadefactor;
     i=((int)(summeddelta*palette.length))%palette.length;
     if(i<0)i=palette.length+i;
     Color c=palette[i];
@@ -88,7 +94,7 @@ public class VideoRenderer1_big_palette_use_delta implements VideoRenderer{
       if(d0>0.5)d0=1.0-d0;
       h=(int)(d0*2*256);
       if(h>255)h=255;
-      System.out.println("h="+h);
+//      System.out.println("h="+h);
       palette[i]=new Color(h,h,h);}}
   
 

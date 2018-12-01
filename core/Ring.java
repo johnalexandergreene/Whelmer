@@ -27,11 +27,15 @@ public abstract class Ring{
    */
   
   /*
-   * the value of whelmer.getTime() when this ring was created.
+   * the value of whelmer.time when this ring was created.
    */
   public int birthday;
   
   public int getAge(){
+    
+//    System.out.println("Ring.getAge");
+//    System.out.println("whelmer.time="+whelmer.time);
+//    System.out.println("birthday="+birthday);
     return whelmer.time-birthday;}
   
   /*
@@ -80,7 +84,22 @@ public abstract class Ring{
    */
   
   public RingPresence getPresence(Cell cell){
-    RingPresence p=new RingPresence(this,getDelta(cell.distance));
+    double d=getDelta(cell.distance);
+    RingPresence p=new RingPresence(this,d);
     return p;}
+  
+  /*
+   * ################################
+   * SPEED
+   * ################################
+   */
+  
+  double speed;
+  
+  public double getSpeed(){
+    return speed;}
+  
+  public void setSpeed(double speed){
+    this.speed=speed;}
   
 }

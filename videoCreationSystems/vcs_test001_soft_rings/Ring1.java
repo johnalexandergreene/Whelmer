@@ -50,7 +50,7 @@ public class Ring1 extends Ring{
    * ################################
    */
   
-  double speed=0.009,thickness=0.13,blur=0.02;
+  double speed=0.006,thickness=0.13,blur=0.02;
   
   double getFrontEdge(){
     double a=speed*((double)getAge());
@@ -58,7 +58,7 @@ public class Ring1 extends Ring{
   
   double getBackEdge(){
     double a=getFrontEdge()-thickness;
-    if(a<0)a=0;
+//    if(a<0)a=0;
     return a;}
 
 }

@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
+package org.fleen.whelmer.videoCreationSystems.vcs_test002_basic_2way;
 
 import org.fleen.whelmer.core.Ring;
 import org.fleen.whelmer.core.Whelmer;
@@ -50,7 +50,7 @@ public class Ring0 extends Ring{
    * ################################
    */
   
-  double speed=0.002,thickness=0.66,blur=0.01;
+  double speed=0.006,thickness=0.33;
   
   double getFrontEdge(){
     double a=speed*((double)getAge());
@@ -58,7 +58,6 @@ public class Ring0 extends Ring{
   
   double getBackEdge(){
     double a=getFrontEdge()-thickness;
-//    if(a<0)a=0;
     return a;}
 
 }

@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
+package org.fleen.whelmer.videoCreationSystems.vcs_test002_basic_2way;
 
 import java.io.File;
 
@@ -7,7 +7,7 @@ import org.fleen.whelmer.core.VideoExporter;
 import org.fleen.whelmer.core.Whelmer;
 import org.fleen.whelmer.videoCreationSystems.UI;
 
-public class VCSTest001{
+public class VCSTest002{
   
   public static final int 
     SIZE=720,

@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
+package org.fleen.whelmer.videoCreationSystems.vcs_test003_asymmetric_noncyclic_2way;
 
 import java.io.File;
 
@@ -7,7 +7,7 @@ import org.fleen.whelmer.core.VideoExporter;
 import org.fleen.whelmer.core.Whelmer;
 import org.fleen.whelmer.videoCreationSystems.UI;
 
-public class VCSTest001{
+public class VCSTest003{
   
   public static final int 
     SIZE=720,
@@ -27,7 +27,7 @@ public class VCSTest001{
     }};
   
   public static final void main(String[] a){
-    Whelmer w=new Whelmer0(
+    Whelmer w=new Whelmer(
       SIZE,DURATION,new Rings0(),
       listener,new File(WORKINGDIR),
       new VideoRenderer1_big_palette_use_delta(),new VideoExporter(),

@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
+package org.fleen.whelmer.videoCreationSystems.vcs_test002_basic_2way;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

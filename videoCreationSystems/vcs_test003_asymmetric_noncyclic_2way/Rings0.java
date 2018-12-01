@@ -1,7 +1,8 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
+package org.fleen.whelmer.videoCreationSystems.vcs_test003_asymmetric_noncyclic_2way;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import org.fleen.whelmer.core.Ring;
 import org.fleen.whelmer.core.Rings;
@@ -30,15 +31,32 @@ public class Rings0 extends ArrayList<Ring> implements Rings{
    * ################################
    */
   
+  Random random=new Random();
+  static final double CREATIONPROBABILITY=0.03;
+  
   public void conditionallyCreateRings(){
-    if(whelmer.time%88==0){
-      System.out.println("created ring");
-      add(new Ring0(whelmer));}
-    if(whelmer.time%45>23&&whelmer.time%6==0){
-      System.out.println("created ring");
-      add(new Ring1(whelmer));}
-    
+    double thickness,speed,delta;
+    if(random.nextDouble()<CREATIONPROBABILITY){
+      thickness=getRandomThickness();
+      speed=getRandomSpeed();
+      delta=getRandomDelta();
+      if(random.nextBoolean()){
+        add(new Ring0(whelmer,thickness,speed,delta));
+      }else{
+        add(new Ring1(whelmer,thickness,speed,delta));}}}
+  
+  double getRandomThickness(){
+    return random.nextDouble()*0.5+0.8;
+    }
+  
+  double getRandomSpeed(){
+    return random.nextDouble()*0.003+0.003;
   }
+  
+  double getRandomDelta(){
+    double a=random.nextDouble()*0.3+0.2;
+    if(random.nextBoolean())a*=-1;
+    return a;}
 
   /*
    * ################################
@@ -52,6 +70,14 @@ public class Rings0 extends ArrayList<Ring> implements Rings{
     int destroyed=0;
     while(i.hasNext()){
       r=i.next();
+      
+      
+//      System.out.println("speed = "+r.getSpeed());
+//      System.out.println("age = "+r.getAge());
+//      if(r instanceof Ring1)
+//        System.out.println("r1 front edge = "+((Ring1)r).getFrontEdge());
+      
+      
       if(r.destroyMe()){
         i.remove();
         destroyed++;}}

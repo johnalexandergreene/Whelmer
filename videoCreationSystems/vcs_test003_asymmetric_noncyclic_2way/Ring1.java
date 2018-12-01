@@ -1,9 +1,12 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test001_soft_rings;
+package org.fleen.whelmer.videoCreationSystems.vcs_test003_asymmetric_noncyclic_2way;
 
 import org.fleen.whelmer.core.Ring;
 import org.fleen.whelmer.core.Whelmer;
 
-public class Ring0 extends Ring{
+/*
+ * it moves in reverse, from the outer edge
+ */
+public class Ring1 extends Ring{
 
   /*
    * ################################
@@ -11,8 +14,11 @@ public class Ring0 extends Ring{
    * ################################
    */
   
-  public Ring0(Whelmer whelmer){
-    super(whelmer);}
+  public Ring1(Whelmer whelmer,double thickness,double speed,double basedelta){
+    super(whelmer);
+    this.thickness=thickness;
+    setSpeed(speed);
+    this.basedelta=basedelta;}
 
   /*
    * ################################
@@ -20,18 +26,20 @@ public class Ring0 extends Ring{
    * ################################
    */
   
+  //cuz it moves in reverse
   public boolean destroyMe(){
-    double a=getBackEdge();
-    if(a>1){
-      System.out.println("des : backedge="+a);
+    double a=getFrontEdge();
+    if(a<0){
       return true;}
     return false;}
 
   /*
    * ################################
-   * GET VALUE
+   * DELTA 
    * ################################
    */
+  
+  double basedelta;
   
   public double getDelta(double d){
     double a=(getFrontEdge()+getBackEdge())/2;
@@ -39,26 +47,25 @@ public class Ring0 extends Ring{
     double z=thickness/2;
     double c=(z-b)/z;
     if(d<getFrontEdge()&&d>getBackEdge())
-      return 0.4*c;
+      return basedelta*c;
     else
       return 0;
     }
-  
+
   /*
    * ################################
    * GEOMETRY
    * ################################
    */
   
-  double speed=0.002,thickness=0.66,blur=0.01;
+  double thickness=0.33;
   
   double getFrontEdge(){
-    double a=speed*((double)getAge());
+    double a=(1.0+thickness)-(getSpeed()*((double)getAge()));
     return a;}
   
   double getBackEdge(){
     double a=getFrontEdge()-thickness;
-//    if(a<0)a=0;
     return a;}
 
 }
