@@ -35,8 +35,9 @@ public class Rings0 extends ArrayList<Ring> implements Rings{
   static final double CREATIONPROBABILITY=0.03;
   
   public void conditionallyCreateRings(){
-    double thickness,speed,delta;
-    if(random.nextDouble()<CREATIONPROBABILITY){
+    double thickness,speed,delta,cp=CREATIONPROBABILITY;
+    if(size()==0)cp=1.0;
+    if(random.nextDouble()<cp){
       thickness=getRandomThickness();
       speed=getRandomSpeed();
       delta=getRandomDelta();
@@ -50,7 +51,7 @@ public class Rings0 extends ArrayList<Ring> implements Rings{
     }
   
   double getRandomSpeed(){
-    return random.nextDouble()*0.003+0.003;
+    return random.nextDouble()*0.0015+0.0015;
   }
   
   double getRandomDelta(){

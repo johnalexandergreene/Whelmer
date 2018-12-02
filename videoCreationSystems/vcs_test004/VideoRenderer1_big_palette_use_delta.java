@@ -3,68 +3,49 @@ package org.fleen.whelmer.videoCreationSystems.vcs_test004;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import org.fleen.whelmer.core.Cell;
-import org.fleen.whelmer.core.RingPresence;
 import org.fleen.whelmer.core.VideoRenderer;
 import org.fleen.whelmer.core.Whelmer;
 
 public class VideoRenderer1_big_palette_use_delta implements VideoRenderer{
   
+  /*
+   * the image fades to alpha=0 at the edge of the whelmer disk and beyond
+   * the gradient starts at EDGEFADE from the edge 
+   */
+  static final double EDGEFADE=0.15;
+  
   public BufferedImage renderFrame(Whelmer whelmer){
-    
     palette=getPalette();
-    
-    BufferedImage image=new BufferedImage(whelmer.size,whelmer.size,BufferedImage.TYPE_INT_RGB);
+    BufferedImage image=new BufferedImage(whelmer.size,whelmer.size,BufferedImage.TYPE_INT_ARGB);
     Graphics2D g=image.createGraphics();
-    
-//    AffineTransform t=AffineTransform.getScaleInstance(1,-1);
-//    t.translate(0,h);
-//    g.setTransform(t);
-    
-    g.setPaint(Color.gray);
+    g.setPaint(Color.black);
     g.fillRect(0,0,whelmer.size,whelmer.size);
-    
-    List<RingPresence> p;
     Color c;
-    double edgefade=0.88;
     for(int x=0;x<whelmer.size;x++){
       for(int y=0;y<whelmer.size;y++){
-        c=getColor(whelmer.cells[x][y],edgefade,whelmer);
+        c=getColor(whelmer.cells[x][y],whelmer);
         image.setRGB(x,y,c.getRGB());}}
     return image;}
   
-  /*
-   * for our test
-   * h=averaged values
-   * s=1
-   * b=averaged intensities
-   */
-  private Color getColor(Cell cell,double edgefade,Whelmer whelmer){
-    double edgefadefactor=1.0;
-    if(cell.distance>edgefade){
-      if(cell.distance>1.0){
-        edgefadefactor=0;
-      }else{
-        double a=cell.distance-edgefade;
-        double b=a/(1.0-edgefade);
-        double c=1.0-b;
-        if(c<0)c=0;
-        edgefadefactor=c;}}
-    //
-    List<RingPresence> presences=cell.getPresences(whelmer);
-    double summeddelta=0;
-    int i;
-    //sum deltas
-    for(RingPresence p:presences)
-        summeddelta+=p.delta;
-    summeddelta*=edgefadefactor;
-    i=((int)(summeddelta*palette.length))%palette.length;
+  private Color getColor(Cell cell,Whelmer whelmer){
+    //get alpha
+    double alpha;
+    if(cell.distance>1.0){
+      alpha=0;
+    }else if(cell.distance<1.0-EDGEFADE){
+      alpha=1.0;
+    }else{
+      alpha=(1.0-cell.distance)/EDGEFADE;}
+    //translate delta into color
+    double delta=cell.getDelta(whelmer);
+    int i=((int)(delta*palette.length))%palette.length;
     if(i<0)i=palette.length+i;
     Color c=palette[i];
+    c=new Color(c.getRed(),c.getGreen(),c.getBlue(),(int)(alpha*255));
     return c;}
   
   /*
@@ -85,36 +66,18 @@ public class VideoRenderer1_big_palette_use_delta implements VideoRenderer{
     if(palette==null)createPalette0();
     return palette;}
   
-  static int PALETTELENGTH=500;
-  
-  void createPalette(){
-    palette=new Color[PALETTELENGTH];
-    int h;
-    double d0;
-    for(int i=0;i<palette.length;i++){
-      d0=((double)i)/((double)palette.length);
-      if(d0>0.5)d0=1.0-d0;
-      h=(int)(d0*2*256);
-      if(h>255)h=255;
-//      System.out.println("h="+h);
-      palette[i]=new Color(h,h,h);}}
-  
   void createPalette0(){
     //load it
     BufferedImage paletteimage=null;
     try{
-      paletteimage=ImageIO.read(VideoRenderer1_big_palette_use_delta.class.getResource("palette000.png"));
+      paletteimage=ImageIO.read(VideoRenderer1_big_palette_use_delta.class.getResource("palette001.png"));
     }catch(Exception x){
       x.printStackTrace();}
     //get the colors out of it
     int w=paletteimage.getWidth();
     palette=new Color[w];
     for(int i=0;i<w;i++){
-      palette[i]=new Color(paletteimage.getRGB(i,0));
-    }
-    
-    
-  }
+      palette[i]=new Color(paletteimage.getRGB(i,0));}}
   
 
 }

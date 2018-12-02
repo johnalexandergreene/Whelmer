@@ -1,8 +1,5 @@
 package org.fleen.whelmer.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Cell{
   
   /*
@@ -25,17 +22,17 @@ public class Cell{
   
   /*
    * ################################
-   * PRESENCES
+   * GET DELTA
    * ################################
    */
   
   /*
-   * look at every ring in the whelmer and get its presence value at this cell
+   * The delta is the sum of ring deltas at this cell
    */
-  public List<RingPresence> getPresences(Whelmer whelmer){
-    List<RingPresence> p=new ArrayList<RingPresence>();
-    for(Ring r:whelmer.rings)
-      p.add(r.getPresence(this));
-    return p;}
+  public double getDelta(Whelmer whelmer){
+    double delta=0;
+    for(Ring ring:whelmer.rings)
+      delta+=ring.getDelta(distance);
+    return delta;}
 
 }
