@@ -19,20 +19,26 @@ public class VideoRenderer1_big_palette_use_delta implements VideoRenderer{
   static final double EDGEFADE=0.15;
   
   public BufferedImage renderFrame(Whelmer whelmer){
-    palette=getPalette();
-    BufferedImage image=new BufferedImage(whelmer.size,whelmer.size,BufferedImage.TYPE_INT_ARGB);
-    Graphics2D g=image.createGraphics();
-    g.setPaint(Color.black);
-    g.fillRect(0,0,whelmer.size,whelmer.size);
+    palette=getPalette(); 
+    //create a colored disk with an edge that fades to transparent
+    BufferedImage iargb=new BufferedImage(whelmer.size,whelmer.size,BufferedImage.TYPE_INT_ARGB);
     Color c;
     for(int x=0;x<whelmer.size;x++){
       for(int y=0;y<whelmer.size;y++){
         c=getColor(whelmer.cells[x][y],whelmer);
-        image.setRGB(x,y,c.getRGB());}}
-    return image;}
+        iargb.setRGB(x,y,c.getRGB());}}
+    //convert to rgb because export strips the alpha data
+    //do the background here too
+    BufferedImage irgb=new BufferedImage(whelmer.size,whelmer.size,BufferedImage.TYPE_INT_RGB);
+    Graphics2D g=irgb.createGraphics();
+    g.setPaint(Color.black);
+    g.fillRect(0,0,whelmer.size,whelmer.size);
+    g.drawImage(iargb,null,null);
+    //
+    return irgb;}
   
   private Color getColor(Cell cell,Whelmer whelmer){
-    //get alpha
+    //get alpha for edgefade
     double alpha;
     if(cell.distance>1.0){
       alpha=0;
