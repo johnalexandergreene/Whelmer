@@ -1,5 +1,7 @@
 package org.fleen.whelmer.core;
 
+import org.fleen.whelmer.core.ring.Ring;
+
 public class Cell{
   
   /*

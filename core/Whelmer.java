@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fleen.geom_2D.GD;
+import org.fleen.whelmer.core.ring.Rings;
 
 public class Whelmer{
 
