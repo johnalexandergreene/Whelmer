@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test008;
+package org.fleen.whelmer.videoCreationSystems.vcs_test009_2dpalettetest_bigdelta_tallpalette;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,37 +34,12 @@ public class Rings0 extends ArrayList<Ring> implements Rings{
   Random random=new Random();
   static final double CREATIONPROBABILITY=0.03;
   
-//  public void conditionallyCreateRings(){
-//    double thickness,speed,basedelta,cp=CREATIONPROBABILITY;
-//    if(size()<1)cp=1.0;
-//    if(size()>3)cp=0;
-//    if(random.nextDouble()<cp){
-//      thickness=getRandomThickness();
-//      speed=getRandomSpeed();
-//      basedelta=getRandomDelta();
-//      if(random.nextBoolean()){
-//        add(new Ring_Simple_OutwardMoving(whelmer,thickness,speed,basedelta));
-//      }else{
-//        add(new Ring_Simple_InwardMoving(whelmer,thickness,speed,basedelta));}}}
-  
   public void conditionallyCreateRings(){
     if((whelmer.time+33)%122==0)
-      add(new Ring_Simple_OutwardMoving(whelmer,0.8,0.002,0.3));
+      add(new Ring_Simple_OutwardMoving(whelmer,0.8,0.002,0.6));
     if(whelmer.time%166==0)
-      add(new Ring_Simple_InwardMoving(whelmer,0.4,0.001,0.4));
-    }
-  
-  double getRandomThickness(){
-    return random.nextDouble()*0.3+0.8;}
-  
-  double getRandomSpeed(){
-    return random.nextDouble()*0.0007+0.0008;}
-  
-  double getRandomDelta(){
-    double a=random.nextDouble()*0.3+0.2;
-    if(random.nextBoolean())a*=-1;
-    return a;}
-
+      add(new Ring_Simple_InwardMoving(whelmer,0.4,0.001,0.8));}
+      
   /*
    * ################################
    * CONDITIONALLY DESTROY RINGS

@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test008;
+package org.fleen.whelmer.videoCreationSystems.vcs_test009_2dpalettetest_bigdelta_tallpalette;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -50,9 +50,9 @@ public class VideoRenderer1 implements VideoRenderer{
       alpha=Math.sin(alpha);}
     //translate delta into color
     double delta=cell.getDelta(whelmer);
-    int i=((int)(delta*palette.length))%palette.length;
-    if(i<0)i=palette.length+i;
-    Color c=palette[i];
+    int deltaindex=((int)(delta*palette.length))%palette.length;
+    if(deltaindex<0)deltaindex=palette.length+deltaindex;
+    Color c=palette[deltaindex][whelmer.time%palette[0].length];
     c=new Color(c.getRed(),c.getGreen(),c.getBlue(),(int)(alpha*255));
     return c;}
   
@@ -68,9 +68,9 @@ public class VideoRenderer1 implements VideoRenderer{
    * 
    */
   
-  Color[] palette=null;
+  Color[][] palette=null;//x is delta, y is time
   
-  Color[] getPalette(){
+  Color[][] getPalette(){
     if(palette==null)createPalette0();
     return palette;}
   
@@ -78,14 +78,18 @@ public class VideoRenderer1 implements VideoRenderer{
     //load it
     BufferedImage paletteimage=null;
     try{
-      paletteimage=ImageIO.read(VideoRenderer1.class.getResource("palette001.png"));
+//      paletteimage=ImageIO.read(VideoRenderer1.class.getResource("palette002_rainbowfield_short.png"));
+      paletteimage=ImageIO.read(VideoRenderer1.class.getResource("palette002_rainbowfield_tall.png"));
     }catch(Exception x){
       x.printStackTrace();}
     //get the colors out of it
-    int w=paletteimage.getWidth();
-    palette=new Color[w];
-    for(int i=0;i<w;i++){
-      palette[i]=new Color(paletteimage.getRGB(i,0));}}
+    int 
+      w=paletteimage.getWidth(),
+      h=paletteimage.getHeight();
+    palette=new Color[w][h];
+    for(int x=0;x<w;x++){
+      for(int y=0;y<h;y++){
+        palette[x][y]=new Color(paletteimage.getRGB(x,y));}}}
   
 
 }

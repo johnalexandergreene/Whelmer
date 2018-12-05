@@ -1,4 +1,4 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test008;
+package org.fleen.whelmer.videoCreationSystems.vcs_test010_2dpalettetest_smalldelta_shortpalette;
 
 import org.fleen.whelmer.core.AudioRenderer;
 import org.fleen.whelmer.core.Whelmer;

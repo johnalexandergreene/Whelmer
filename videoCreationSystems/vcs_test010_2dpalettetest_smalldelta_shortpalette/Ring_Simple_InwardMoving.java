@@ -1,9 +1,9 @@
-package org.fleen.whelmer.videoCreationSystems.vcs_test008;
+package org.fleen.whelmer.videoCreationSystems.vcs_test010_2dpalettetest_smalldelta_shortpalette;
 
 import org.fleen.whelmer.core.Whelmer;
 import org.fleen.whelmer.core.ring.Ring;
 
-public class Ring_Simple_OutwardMoving extends Ring{
+public class Ring_Simple_InwardMoving extends Ring{
   
   /*
    * ################################
@@ -11,7 +11,7 @@ public class Ring_Simple_OutwardMoving extends Ring{
    * ################################
    */
   
-  public Ring_Simple_OutwardMoving(Whelmer whelmer,double thickness,double speed,double basedelta){
+  public Ring_Simple_InwardMoving(Whelmer whelmer,double thickness,double speed,double basedelta){
     super(whelmer);
     this.thickness=thickness;
     this.speed=speed;
@@ -39,22 +39,15 @@ public class Ring_Simple_OutwardMoving extends Ring{
    * ################################
    */
   
-  public double basedelta;
+  double basedelta;
   
   public double getDelta(double d){
-    
-    double bd0=basedelta;
-    if(getAge()%6<3)
-      bd0+=0.12;
-    else
-      bd0-=0.12;
-    
     double a=(getFrontEdge()+getBackEdge())/2;
     double b=Math.abs(d-a);
     double z=thickness/2;
     double c=(z-b)/z;
     if(d<getFrontEdge()&&d>getBackEdge())
-      return bd0*c;
+      return basedelta*c;
     else
       return 0;}
   
@@ -65,8 +58,8 @@ public class Ring_Simple_OutwardMoving extends Ring{
    */
   
   public boolean destroyMe(){
-    double a=getBackEdge();
-    if(a>1){
+    double a=getFrontEdge();
+    if(a<0){
       return true;}
     return false;}
   
@@ -77,7 +70,7 @@ public class Ring_Simple_OutwardMoving extends Ring{
    */
   
   double getFrontEdge(){
-    double a=speed*((double)getAge());
+    double a=(1.0+thickness)-(speed*((double)getAge()));
     return a;}
   
   double getBackEdge(){
