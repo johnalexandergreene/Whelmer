@@ -1,6 +1,6 @@
 package org.fleen.whelmer.core;
 
-import org.fleen.whelmer.core.ring.Ring;
+import org.fleen.whelmer.core.ring.Ring_Simple;
 
 public class Cell{
   
@@ -33,7 +33,7 @@ public class Cell{
    */
   public double getDelta(Whelmer whelmer){
     double delta=0;
-    for(Ring ring:whelmer.rings)
+    for(Ring_Simple ring:whelmer.rings)
       delta+=ring.getDelta(distance);
     return delta;}
 

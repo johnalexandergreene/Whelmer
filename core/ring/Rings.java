@@ -10,7 +10,7 @@ import org.fleen.whelmer.core.Whelmer;
  * logic for creating and destroying rings
  * ring access
  */
-public interface Rings extends List<Ring>{
+public interface Rings extends List<Ring_Simple>{
  
   void setWhelmer(Whelmer whelmer);
   

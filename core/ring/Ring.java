@@ -1,59 +1,6 @@
 package org.fleen.whelmer.core.ring;
 
-import org.fleen.whelmer.core.Whelmer;
-
-public abstract class Ring{
-  
-  /*
-   * ################################
-   * CONSTRUCTOR
-   * ################################
-   */
- 
-  public Ring(Whelmer whelmer){
-    this.whelmer=whelmer;
-    birthday=whelmer.time;}
-  
-  /*
-   * ################################
-   * WHELMER
-   * ################################
-   */
-  
-  public Whelmer whelmer;
-  
-  /*
-   * ################################
-   * BIRTHDAY AND AGE
-   * ################################
-   */
-  
-  /*
-   * the value of whelmer.time when this ring was created.
-   */
-  public int birthday;
-  
-  public int getAge(){
-    return whelmer.time-birthday;}
-  
-  /*
-   * ################################
-   * DESTROY ME
-   * ################################
-   */
-  
-  /*
-   * at some point a ring gets destroyed. 
-   * Maybe it passes outside the geometry of the whelmer or something.... 
-   * At that point we might signal that we are ready to be discarded from the whelmer system.
-   */
-  public abstract boolean destroyMe(); 
-  
-  /*
-   * ################################
-   * DELTA
-   * ################################
-   */
+public interface Ring{
   
   /*
    * Get DELTA at the specified distance.
@@ -69,17 +16,11 @@ public abstract class Ring{
    * It can be translated into a color (H in HSB?) or sound (a base frequency?).
    * It can be blended with other ring values 
    */
-  public abstract double getDelta(double d);
+  double getDelta(double distance);
   
   /*
-   * ################################
-   * TODO
-   * properly fleshed out ring logic
-   * front edge speed, back edge speed
-   * front edge fade, back edge fade
-   * all fade...
-   * etc
-   * ################################
+   * signals that the ring is done dancing and it's time to remove it from the stage
    */
-  
+  boolean destroyMe();
+
 }
