@@ -88,7 +88,7 @@ public class VideoRenderer1 implements VideoRenderer{
     //load it
     BufferedImage paletteimage=null;
     try{
-      paletteimage=ImageIO.read(VideoRenderer1.class.getResource("palette002.png"));
+      paletteimage=ImageIO.read(VideoRenderer1.class.getResource("palette004.png"));
     }catch(Exception x){
       x.printStackTrace();}
     //get the colors out of it
