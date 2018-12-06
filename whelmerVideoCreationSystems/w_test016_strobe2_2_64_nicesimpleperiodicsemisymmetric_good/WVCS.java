@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test016_strobe2_2_64;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test016_strobe2_2_64_nicesimpleperiodicsemisymmetric_good;
 
 import java.io.File;
 

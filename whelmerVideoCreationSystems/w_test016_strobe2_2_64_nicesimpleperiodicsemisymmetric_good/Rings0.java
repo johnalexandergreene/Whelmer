@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test016_strobe2_2_64;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test016_strobe2_2_64_nicesimpleperiodicsemisymmetric_good;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,10 +36,10 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Rings{
   static final double CREATIONPROBABILITY=0.03;
   
   public void conditionallyCreateRings(){
-    if((whelmer.time+33)%122==0)
-      add(new Ring_Simple_Sine(whelmer,Ring_Simple.FORWARD,0.002,0.7,0.4));
-    if(whelmer.time%166==0)
-      add(new Ring_Simple_Sine(whelmer,Ring_Simple.BACKWARD,0.002,0.7,0.4));}
+    if((whelmer.time+77)%99==0)
+      add(new Ring_Simple_Sine(whelmer,Ring_Simple.FORWARD,0.002,0.5,0.5));
+    if(whelmer.time%123==0)
+      add(new Ring_Simple_Sine(whelmer,Ring_Simple.BACKWARD,0.002,0.5,-0.5));}
       
   /*
    * ################################
