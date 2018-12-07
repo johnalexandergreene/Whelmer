@@ -46,8 +46,8 @@ public abstract class Ring_Simple implements Ring{
    */
   
   public static final boolean 
-    FORWARD=true,
-    BACKWARD=false;
+    OUTWARD=true,
+    INWARD=false;
   
   public boolean direction;
   
@@ -74,7 +74,7 @@ public abstract class Ring_Simple implements Ring{
    */
   
   public boolean destroyMe(){
-    if(direction==FORWARD)
+    if(direction==OUTWARD)
       return getInnerEdge()>1;
     else
       return getOuterEdge()<0;}
@@ -87,7 +87,7 @@ public abstract class Ring_Simple implements Ring{
   
   double getOuterEdge(){
     double a;
-    if(direction==FORWARD)
+    if(direction==OUTWARD)
       a=speed*((double)getAge());
     else//direction=BACKWARD
       a=(1.0+thickness)-(speed*((double)getAge()));

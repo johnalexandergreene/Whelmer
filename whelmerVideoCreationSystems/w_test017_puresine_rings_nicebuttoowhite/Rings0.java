@@ -1,10 +1,11 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test015_strobe_is_4_4_with_amp64;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test017_puresine_rings_nicebuttoowhite;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
 import org.fleen.whelmer.core.Whelmer;
+import org.fleen.whelmer.core.ring.Ring_PureSine;
 import org.fleen.whelmer.core.ring.Ring_Simple;
 import org.fleen.whelmer.core.ring.Ring_Simple_Sine;
 import org.fleen.whelmer.core.ring.Rings;
@@ -36,10 +37,16 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Rings{
   static final double CREATIONPROBABILITY=0.03;
   
   public void conditionallyCreateRings(){
-    if((whelmer.time+33)%122==0)
-      add(new Ring_Simple_Sine(whelmer,Ring_Simple.OUTWARD,0.002,0.8,0.6));
+    if((whelmer.time+44)%33==0)
+      add(new Ring_PureSine(whelmer,Ring_PureSine.OUTWARD,0.002,0.08,Ring_PureSine.POSITIVE));
+    if(whelmer.time%123==0)
+      add(new Ring_PureSine(whelmer,Ring_PureSine.INWARD,0.003,0.5,Ring_PureSine.NEGATIVE));
+    if(whelmer.time%111==0)
+      add(new Ring_PureSine(whelmer,Ring_PureSine.INWARD,0.004,0.19,Ring_PureSine.POSITIVE));
     if(whelmer.time%166==0)
-      add(new Ring_Simple_Sine(whelmer,Ring_Simple.INWARD,0.001,0.4,0.8));}
+      add(new Ring_PureSine(whelmer,Ring_PureSine.INWARD,0.0033,0.25,Ring_PureSine.NEGATIVE));
+  
+  }
       
   /*
    * ################################
@@ -53,14 +60,6 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Rings{
     int destroyed=0;
     while(i.hasNext()){
       r=i.next();
-      
-      
-//      System.out.println("speed = "+r.getSpeed());
-//      System.out.println("age = "+r.getAge());
-//      if(r instanceof Ring1)
-//        System.out.println("r1 front edge = "+((Ring1)r).getFrontEdge());
-      
-      
       if(r.destroyMe()){
         i.remove();
         destroyed++;}}

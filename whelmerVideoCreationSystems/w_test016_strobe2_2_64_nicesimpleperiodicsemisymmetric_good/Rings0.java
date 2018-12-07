@@ -37,9 +37,9 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Rings{
   
   public void conditionallyCreateRings(){
     if((whelmer.time+77)%99==0)
-      add(new Ring_Simple_Sine(whelmer,Ring_Simple.FORWARD,0.002,0.5,0.5));
+      add(new Ring_Simple_Sine(whelmer,Ring_Simple.OUTWARD,0.002,0.5,0.5));
     if(whelmer.time%123==0)
-      add(new Ring_Simple_Sine(whelmer,Ring_Simple.BACKWARD,0.002,0.5,-0.5));}
+      add(new Ring_Simple_Sine(whelmer,Ring_Simple.INWARD,0.002,0.5,-0.5));}
       
   /*
    * ################################
