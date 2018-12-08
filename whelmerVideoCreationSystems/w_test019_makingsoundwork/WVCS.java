@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test018_periodic_asymmetric_2_2_strobe_veryverynice;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test019_makingsoundwork;
 
 import java.io.File;
 
@@ -12,7 +12,7 @@ public class WVCS{
   
   public static final int 
     SIZE=720,
-    DURATION=300;
+    DURATION=3000;
   
   private static UI ui;
   

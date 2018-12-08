@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test018_periodic_asymmetric_2_2_strobe_veryverynice;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test019_makingsoundwork;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +22,19 @@ public class AudioRenderer0 implements AudioRenderer{
       ringsounds.add(getRingSound(ring,soundpiecelength));
     //get averaged sound array
     int[] totalsound=new int[soundpiecelength];
-//    int a;
-//    for(int i=0;i<soundpiecelength;i++){
-//      a=0;
-//      for(int[] ringsound:ringsounds)
-//        a+=ringsound[i];
-//      a/=ringsounds.size();
-//      totalsound[i]=a;}
-    
-    //TEST
-    totalsound=getRingSound(null,soundpiecelength);
-    
-    
-    
+    if(whelmer.rings.isEmpty())return totalsound;
+    int a;
+    for(int i=0;i<soundpiecelength;i++){
+      a=0;
+      for(int[] ringsound:ringsounds)
+        a+=ringsound[i];
+      a/=ringsounds.size();
+      totalsound[i]=a;}
     //
     return totalsound;}
   
-//  static final double MAXAMPLITUDE=32768;
-  static final double MAXAMPLITUDE=16000;
+  //apparently 32768 is too high. It makes a harsh clipping. so this works fine.
+  static final double MAXAMPLITUDE=30000;
   
   /*
    * make a hunk of sine wave
@@ -51,8 +46,24 @@ public class AudioRenderer0 implements AudioRenderer{
     double a;
     for(int i=0;i<soundpiecelength;i++){
       a=((double)i)/((double)soundpiecelength);
-      a=a*Math.PI*2;
+      a=a*Math.PI*2*getFrequencyFactor(ring);
       sound[i]=(int)(Math.sin(a)*MAXAMPLITUDE);}
     return sound;}
+  
+  static final double BASEFREQUENCYFACTOR=16;
+  
+  private double getFrequencyFactor(Ring ring){
+    double f=ring.getOuterEdge()*BASEFREQUENCYFACTOR;
+    return f;}
+  
+  //60 hz
+//  int[] getRingSound(Ring ring,int soundpiecelength){
+//    int[] sound=new int[soundpiecelength];
+//    double a;
+//    for(int i=0;i<soundpiecelength;i++){
+//      a=((double)i)/((double)soundpiecelength);
+//      a=a*Math.PI*2;
+//      sound[i]=(int)(Math.sin(a)*MAXAMPLITUDE);}
+//    return sound;}
 
 }

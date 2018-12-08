@@ -1,3 +1,17 @@
+a sound logic
+  outer radius = frequency
+  thickness = volume
+  
+also fuzz it a bit
+
+-------------
+
+also, try visual noise
+  random gray and alpha on everything inside the circle, or something  
+
+
+-----------------
+
 checked the ring radius. Works fine.
 
 The way it should probably be done

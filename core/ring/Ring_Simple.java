@@ -85,7 +85,7 @@ public abstract class Ring_Simple implements Ring{
    * ################################
    */
   
-  double getOuterEdge(){
+  public double getOuterEdge(){
     double a;
     if(direction==OUTWARD)
       a=speed*((double)getAge());
@@ -93,7 +93,7 @@ public abstract class Ring_Simple implements Ring{
       a=(1.0+thickness)-(speed*((double)getAge()));
     return a;}
   
-  double getInnerEdge(){
+  public double getInnerEdge(){
     double a=getOuterEdge()-thickness;
     return a;}
   

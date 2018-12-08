@@ -3,6 +3,14 @@ package org.fleen.whelmer.core.ring;
 public interface Ring{
   
   /*
+   * ring geometry
+   */
+  
+  double getInnerEdge();
+  
+  double getOuterEdge();
+  
+  /*
    * Get DELTA at the specified distance.
    *  
    * By distance we mean the distance of a cell from the center of the whelmer. 
