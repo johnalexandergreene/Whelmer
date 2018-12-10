@@ -30,6 +30,7 @@ public class Cell{
   
   /*
    * The delta is the sum of ring deltas at this cell
+   * what is it? 0.001? 20? 500? I dunno.
    */
   public double getDelta(Whelmer whelmer){
     double delta=0;

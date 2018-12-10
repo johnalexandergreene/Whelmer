@@ -89,12 +89,13 @@ public class Whelmer{
   
   private void incrementTime(){
     time++;
-    if(time%10==0)System.out.println("time="+time);
-      renderAndExportVideoFrame();
-      renderAndStoreAudioFrame();
-      rings.conditionallyCreateRings();
-      rings.conditionallyDestroyRings();
-      progresslistener.timeIncremented(this);}
+    if(time%10==0)
+      System.out.println("time="+time+" ringcount="+rings.size());
+    renderAndExportVideoFrame();
+    renderAndStoreAudioFrame();
+    rings.conditionallyCreateRings();
+    rings.conditionallyDestroyRings();
+    progresslistener.timeIncremented(this);}
   
   /*
    * ################################

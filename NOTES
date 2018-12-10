@@ -1,3 +1,39 @@
+ 
+ ########################################
+CELLS TO SOUNDS
+ 
+ A NEW LOGIC
+
+for each cell
+create a sound piece
+average all soundpieces
+
+for each cell
+  frequency=color (or delta, or whatever)
+  amplitude=distance from 0.5. That is, the area of max volume is the equidistant ring
+
+this might be a hog
+
+
+@@@@@@@@@@@
+---SEEING AS HOW
+IT IS RADIALLY SYMMETRIC
+How about we address only a single strip of cells? A 1d array extending from center-out
+@@@@@@@@@@@@@@@
+
+
+WE COULD MIX THIS WITH THE OLD LOGIC@@@@@@@@@@@@@@ 
+
+(the old logic being sound based on ring size and location)
+
+we could mix the sound. used both
+because the rings certainly do sound nice.
+
+#####################################
+
+
+
+
 a sound logic
   outer radius = frequency
   thickness = volume
