@@ -34,7 +34,7 @@ public class Cell{
    */
   public double getDelta(Whelmer whelmer){
     double delta=0;
-    for(Ring_Simple ring:whelmer.rings)
+    for(Ring_Simple ring:whelmer.controller)
       delta+=ring.getDelta(distance);
     return delta;}
 

@@ -1,18 +1,18 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test20_2way_nonperiodic_primitivesound;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test26_nonperiodic_fixingstuffup;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import org.fleen.whelmer.core.Whelmer;
+import org.fleen.whelmer.core.ring.Projector;
+import org.fleen.whelmer.core.ring.Ring;
 import org.fleen.whelmer.core.ring.Ring_PureSine;
 import org.fleen.whelmer.core.ring.Ring_Simple;
-import org.fleen.whelmer.core.ring.Ring_Simple_Sine;
-import org.fleen.whelmer.core.ring.Projector;
 
-@SuppressWarnings("serial")
-public class Rings0 extends ArrayList<Ring_Simple> implements Projector{
-  
+public class Projector1 implements Projector{
+
   /*
    * ################################
    * WHELMER
@@ -26,7 +26,21 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Projector{
   
   public Whelmer getWhelmer(){
     return whelmer;}
+
+  /*
+   * ################################
+   * RINGS
+   * ################################
+   */
   
+  private List<Ring> rings=new ArrayList<Ring>();
+  
+  public int getRingCount(){
+    return rings.size();}
+  
+  public Iterator<Ring> getRingIterator(){
+    return rings.iterator();}
+
   /*
    * ################################
    * CONDITIONALLY CREATE RINGS
@@ -38,11 +52,11 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Projector{
   
   public void conditionallyCreateRings(){
     double p=CREATIONPROBABILITY;
-    if(size()<2){
+    if(rings.size()<2){
       p=1;
-    }else if(size()>5)p=0;
+    }else if(rings.size()>5)p=0;
     if(random.nextDouble()<p){
-      add(new Ring_PureSine(
+      rings.add(new Ring_PureSine(
           whelmer,
           getRandomDirection(),
           getRandomSpeed(),
@@ -60,18 +74,7 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Projector{
   
   boolean getRandomPolarity(){
     return random.nextBoolean();}
-  
-  
-//  public void conditionallyCreateRingsZ(){
-//    if((whelmer.time+44)%33==0)
-//      add(new Ring_PureSine(whelmer,Ring_PureSine.OUTWARD,0.002,0.08,Ring_PureSine.POSITIVE));
-//    if(whelmer.time%123==0)
-//      add(new Ring_PureSine(whelmer,Ring_PureSine.INWARD,0.003,0.5,Ring_PureSine.NEGATIVE));
-//    if(whelmer.time%111==0)
-//      add(new Ring_PureSine(whelmer,Ring_PureSine.INWARD,0.004,0.19,Ring_PureSine.POSITIVE));
-//    if(whelmer.time%166==0)
-//      add(new Ring_PureSine(whelmer,Ring_PureSine.INWARD,0.0033,0.25,Ring_PureSine.NEGATIVE));}
-      
+
   /*
    * ################################
    * CONDITIONALLY DESTROY RINGS
@@ -79,8 +82,8 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Projector{
    */
   
   public void conditionallyDestroyRings(){
-    Iterator<Ring_Simple> i=iterator();
-    Ring_Simple r;
+    Iterator<Ring> i=rings.iterator();
+    Ring r;
     int destroyed=0;
     while(i.hasNext()){
       r=i.next();
@@ -88,5 +91,38 @@ public class Rings0 extends ArrayList<Ring_Simple> implements Projector{
         i.remove();
         destroyed++;}}
     if(destroyed>0)System.out.println("destroyed="+destroyed);}
+
+  /*
+   * ################################
+   * STROBE
+   * we use this when calculating delta
+   * we might also refer to this when filtering sound, 
+   *   because the strobe will probably create a big 60hz tone
+   *   
+   * We could do something fancy here. 
+   *   A sin(time) kinda deal. 
+   *   or multiple strobes of differing rhythms, summed.
+   * ################################
+   */
+  
+//  static final int[] STROBE_DELTA_OVERLAY={-32,-32,32,32};
+  static final double[] STROBE_DELTA_OVERLAY={-0.04,-0.04,0.04,0.04};
+  
+  public double getStrobe(){
+    double s=STROBE_DELTA_OVERLAY[whelmer.time%STROBE_DELTA_OVERLAY.length];
+    return s;}
+
+  /*
+   * ################################
+   * DELTA
+   * ################################
+   */
+  
+  public double getDelta(double r){
+    double delta=0;
+    for(Ring ring:rings)
+      delta+=ring.getDelta(r);
+    delta+=getStrobe();
+    return delta;}
 
 }

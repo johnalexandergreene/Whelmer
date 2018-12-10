@@ -7,10 +7,10 @@ import java.util.Random;
 import org.fleen.whelmer.core.Whelmer;
 import org.fleen.whelmer.core.ring.Ring_Simple;
 import org.fleen.whelmer.core.ring.Ring_Simple_Sine;
-import org.fleen.whelmer.core.ring.Rings;
+import org.fleen.whelmer.core.ring.Projector;
 
 @SuppressWarnings("serial")
-public class Rings0 extends ArrayList<Ring_Simple> implements Rings{
+public class Rings0 extends ArrayList<Ring_Simple> implements Projector{
   
   /*
    * ################################

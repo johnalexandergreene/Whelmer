@@ -6,8 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fleen.geom_2D.GD;
-import org.fleen.whelmer.core.ring.Rings;
+import org.fleen.whelmer.core.ring.Projector;
 
+/*
+ * it's an audiovideo generation system
+ * it's a 3d function. 2d frames over time
+ * we project a system of moving rings and maybe a few other things upon an array of cells.
+ * from each cell we get a value
+ * from those values we get colors and sounds. Thus our audiovideo
+ * 
+ */
 public class Whelmer{
 
   /*
@@ -17,13 +25,12 @@ public class Whelmer{
    */
   
   public Whelmer(
-    int size,int duration,Rings rings,
+    int size,int duration,Projector rings,
     ProgressListener progresslistener,File exportdir,
     VideoRenderer videorenderer,VideoExporter videoexporter,
     AudioRenderer audiorenderer,AudioExporter audioexporter){
-    this.size=size;
     this.duration=duration;
-    this.rings=rings;
+    this.controller=rings;
     rings.setWhelmer(this);
     this.exportdir=exportdir;
     this.progresslistener=progresslistener;
@@ -32,7 +39,7 @@ public class Whelmer{
     this.audiorenderer=audiorenderer;
     this.audioexporter=audioexporter;
     audioexporter.setWhelmer(this);
-    initCells();}
+    initCells(size);}
   
   /*
    * ################################
@@ -90,11 +97,11 @@ public class Whelmer{
   private void incrementTime(){
     time++;
     if(time%10==0)
-      System.out.println("time="+time+" ringcount="+rings.size());
+      System.out.println("time="+time+" ringcount="+controller.getRingCount());
     renderAndExportVideoFrame();
     renderAndStoreAudioFrame();
-    rings.conditionallyCreateRings();
-    rings.conditionallyDestroyRings();
+    controller.conditionallyCreateRings();
+    controller.conditionallyDestroyRings();
     progresslistener.timeIncremented(this);}
   
   /*
@@ -115,29 +122,36 @@ public class Whelmer{
   
   /*
    * ################################
-   * RINGS
+   * CONTROLLER
    * ################################
    */
   
-  public Rings rings;
+  public Projector controller;
 
   /*
    * ################################
    * CELLS
+   * a field of squares upon which the projector projects stuff
+   * it's just a 2d array of doubles
+   * the double value is the 2d distance from the center of the array-square
+   *   in terms of the array-square span /2
+   *   the normalized radius, in other words
+   *   the value ranges [0,1] 
    * ################################
    */
   
-  //the height and width of our cell array (which is a square)
-  public int size;
   //a cell is a component of the ground upon which rings cast their radiance
-  public Cell[][] cells;
+  public double[][] cells;
   
-  private void initCells(){
-    double wc=((double)size)/2;
-    cells=new Cell[size][size];
+  public int getCellArraySpan(){
+    return cells.length;}
+  
+  private void initCells(int size){
+    double whelmercenter=((double)size)/2;//being a square this serves for both x and y
+    cells=new double[size][size];
     for(int x=0;x<size;x++){
       for(int y=0;y<size;y++){
-        cells[x][y]=new Cell(getCellDistance(wc,x,y));}}}
+        cells[x][y]=getCellDistance(whelmercenter,x,y);}}}
   
   /*
    * remember!
@@ -150,7 +164,7 @@ public class Whelmer{
       cellcenterx=x+0.5,
       cellcentery=y+0.5,
       d=GD.getDistance_PointPoint(whelmercenter,whelmercenter,cellcenterx,cellcentery);
-    d=(d*2)/((double)size);//normalize it to [0,1]
+    d=(d*2)/((double)getCellArraySpan());//normalize it to [0,1]
     return d;}
   
   /*

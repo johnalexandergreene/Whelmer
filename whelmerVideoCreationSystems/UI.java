@@ -11,7 +11,7 @@ public class UI extends JFrame{
   
   public UI(Whelmer whelmer){
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setBounds(50,50,whelmer.size+100,whelmer.size+100);
+    setBounds(50,50,whelmer.getCellArraySpan()+100,whelmer.getCellArraySpan()+100);
     imagepanel=new ImagePanel(whelmer);
     setContentPane(imagepanel);
     setVisible(true);}

@@ -18,7 +18,7 @@ public class AudioRenderer0 implements AudioRenderer{
     int soundpiecelength=whelmer.getAudioSampleRatePerFrame();
     //get all ring sounds
     List<int[]> ringsounds=new ArrayList<int[]>();
-    for(Ring ring:whelmer.rings)
+    for(Ring ring:whelmer.controller)
       ringsounds.add(getRingSound(ring,soundpiecelength));
     //get averaged sound array
     int[] totalsound=new int[soundpiecelength];

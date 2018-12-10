@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test22_soundtest_fullcellfieldquery_pigslowanddoesntreallywork;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test26_nonperiodic_fixingstuffup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,10 @@ import org.fleen.whelmer.core.Whelmer;
 import org.fleen.whelmer.core.ring.Ring;
 
 /*
+ * sample a strip of cells extending from the center of the cell field to the edge
+ * this is a good representation of the whole cell field
+ * use this to derive sound
+ * 
  * get sound for each cell
  *   delta is frequency
  *   closeness to whelmer center-ring is volume
@@ -22,14 +26,14 @@ public class AudioRenderer0 implements AudioRenderer{
   public int[] renderAudioFrame(Whelmer whelmer){
     //get metrics
     int soundpiecelength=whelmer.getAudioSampleRatePerFrame();
-    //get all cell sounds
+    //get cell sounds
+    //sample cells in strip extending from center to edge of cell array
+    double[] samplestrip=getSampleStrip(whelmer);
     List<int[]> cellsounds=new ArrayList<int[]>();
-    for(int x=0;x<whelmer.size;x++)
-      for(int y=0;y<whelmer.size;y++)
-        cellsounds.add(getCellSound(whelmer.cells[x][y],soundpiecelength,whelmer));
-    //get averaged sound array
+    for(double c:samplestrip)
+      cellsounds.add(getCellSound(c,soundpiecelength,whelmer));
+    //get averaged cell sounds
     int[] totalsound=new int[soundpiecelength];
-    if(whelmer.controller.isEmpty())return totalsound;
     int a;
     for(int i=0;i<soundpiecelength;i++){
       a=0;
@@ -40,6 +44,21 @@ public class AudioRenderer0 implements AudioRenderer{
     //
     return totalsound;}
   
+  double[] samplestrip=null;
+  
+  double[] getSampleStrip(Whelmer whelmer){
+    if(samplestrip==null)gleanSampleStrip(whelmer);
+    return samplestrip;}
+  
+  void gleanSampleStrip(Whelmer whelmer){
+    int
+      s=whelmer.getCellArraySpan(),
+      x=s/2,
+      y=x;
+    samplestrip=new double[x];
+    for(int i=0;i<x;i++)
+      samplestrip[i]=whelmer.cells[x+i][y];}
+  
   //apparently 32768 is too high. It makes a harsh clipping. so this works fine.
   static final double MAXAMPLITUDE=30000;
   
@@ -48,7 +67,7 @@ public class AudioRenderer0 implements AudioRenderer{
    * start and end at 0 for pop reduction
    * remember, the length of this piece of sound is 1/60 of a second, so even a single sine wave is gonna make a nice tone
    */
-  int[] getCellSound(Cell cell,int soundpiecelength,Whelmer whelmer){
+  int[] getCellSound(double cell,int soundpiecelength,Whelmer whelmer){
     int[] sound=new int[soundpiecelength];
     double a;
     for(int i=0;i<soundpiecelength;i++){
@@ -57,20 +76,20 @@ public class AudioRenderer0 implements AudioRenderer{
       sound[i]=(int)(Math.sin(a)*MAXAMPLITUDE*getVolumeFactor(cell));}
     return sound;}
   
-  static final double BASEFREQUENCYFACTOR=16;
-  static final double CELLDELTACAP=12.0;
+  static final double BASEFREQUENCYFACTOR=256;
+  static final double CELLDELTACAP=6.0;
   
-  private double getFrequencyFactor(Cell cell,Whelmer whelmer){
-    double d=cell.getDelta(whelmer);
+  private double getFrequencyFactor(double cell,Whelmer whelmer){
+    double d=whelmer.controller.getDelta(cell);
     d=((d%CELLDELTACAP)/CELLDELTACAP)*BASEFREQUENCYFACTOR;
     return d;}
   
   /*
    * valoume=closeness to whelmer center ring radius 0.5
    */
-  private double getVolumeFactor(Cell cell){
-    if(cell.distance<0||cell.distance>1.0)return 0;
-    double closeness=(0.5-(Math.abs(0.5-cell.distance)))*2;
+  private double getVolumeFactor(double cell){
+    if(cell<0||cell>1.0)return 0;
+    double closeness=(0.5-(Math.abs(0.5-cell)))*2;
     return closeness;
     
     
