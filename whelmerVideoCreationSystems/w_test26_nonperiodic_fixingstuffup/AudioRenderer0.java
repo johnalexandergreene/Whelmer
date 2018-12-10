@@ -80,9 +80,12 @@ public class AudioRenderer0 implements AudioRenderer{
   static final double CELLDELTACAP=6.0;
   
   private double getFrequencyFactor(double cell,Whelmer whelmer){
-    double d=whelmer.controller.getDelta(cell);
+    double d=whelmer.controller.getDelta(cell)+getStrobeSoundFilter(whelmer);
     d=((d%CELLDELTACAP)/CELLDELTACAP)*BASEFREQUENCYFACTOR;
     return d;}
+  
+  private double getStrobeSoundFilter(Whelmer whelmer){
+    return whelmer.controller.getStrobe()*(-1.0);}
   
   /*
    * valoume=closeness to whelmer center ring radius 0.5
