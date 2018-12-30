@@ -30,7 +30,7 @@ public class Whelmer{
     VideoRenderer videorenderer,VideoExporter videoexporter,
     AudioRenderer audiorenderer,AudioExporter audioexporter){
     this.duration=duration;
-    this.controller=rings;
+    this.projector=rings;
     rings.setWhelmer(this);
     this.exportdir=exportdir;
     this.progresslistener=progresslistener;
@@ -97,11 +97,11 @@ public class Whelmer{
   private void incrementTime(){
     time++;
     if(time%10==0)
-      System.out.println("time="+time+" ringcount="+controller.getRingCount());
+      System.out.println("time="+time+" ringcount="+projector.getRingCount());
     renderAndExportVideoFrame();
     renderAndStoreAudioFrame();
-    controller.conditionallyCreateRings();
-    controller.conditionallyDestroyRings();
+    projector.conditionallyCreateRings();
+    projector.conditionallyDestroyRings();
     progresslistener.timeIncremented(this);}
   
   /*
@@ -126,7 +126,7 @@ public class Whelmer{
    * ################################
    */
   
-  public Projector controller;
+  public Projector projector;
 
   /*
    * ################################

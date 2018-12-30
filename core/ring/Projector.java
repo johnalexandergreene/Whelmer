@@ -68,8 +68,9 @@ public interface Projector{
    */
   
   /*
-   * r is the radius value of a strobe
-   * returns a value derived from the compounded influence of the rings and strobe 
+   * r is the distance from the center of the whelmer
+   * returns a value derived from the compounded influence of the rings
+   * used to get color and sound
    */
   double getDelta(double r);
 

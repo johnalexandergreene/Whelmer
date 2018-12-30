@@ -1,7 +1,5 @@
 package org.fleen.whelmer.core;
 
-import org.fleen.whelmer.core.ring.Ring_Simple;
-
 public class Cell{
   
   /*
@@ -32,10 +30,10 @@ public class Cell{
    * The delta is the sum of ring deltas at this cell
    * what is it? 0.001? 20? 500? I dunno.
    */
-  public double getDelta(Whelmer whelmer){
-    double delta=0;
-    for(Ring_Simple ring:whelmer.controller)
-      delta+=ring.getDelta(distance);
-    return delta;}
+//  public double getDelta(Whelmer whelmer){
+//    double delta=0;
+//    for(Ring_Simple ring:whelmer.controller)
+//      delta+=ring.getDelta(distance);
+//    return delta;}
 
 }
