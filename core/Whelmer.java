@@ -85,19 +85,39 @@ public class Whelmer{
   
   public int time=-1,duration;
   
+  static long PROGRESSINFOINCREMENTMS=1000;
+  
+  private long 
+    runstartms,
+    priorprogressinfoms=-PROGRESSINFOINCREMENTMS;
+  
   public void run(){
     System.out.println("whelmer run : duration="+duration);
+    runstartms=System.currentTimeMillis();
     for(int i=0;i<duration;i++){
       incrementTime();}
     //
-    System.out.println("exporting audio");
     exportAudio();
-    progresslistener.finished(this);}
+    //
+    System.out.println("#### FINISHED ####");
+    System.out.println("time elapsed : "+(System.currentTimeMillis()-runstartms));
+    progresslistener.finished(this);
+    }
   
   private void incrementTime(){
     time++;
-    if(time%10==0)
-      System.out.println("time="+time+" ringcount="+projector.getRingCount());
+    long presentms=System.currentTimeMillis();
+    if(presentms>=priorprogressinfoms+PROGRESSINFOINCREMENTMS){
+      priorprogressinfoms=presentms;
+      System.out.println("================================");
+      System.out.println("framecount="+time);
+      System.out.println("ringcount="+projector.getRingCount());
+      long timeelapsed=presentms-runstartms;
+      System.out.println("timeelapsed="+timeelapsed);
+      int z=time;
+      if(z<1)z=1;
+      System.out.println("eta="+((timeelapsed/z)*(duration-z)));
+      System.out.println("================================");}
     renderAndExportVideoFrame();
     renderAndStoreAudioFrame();
     projector.conditionallyCreateRings();

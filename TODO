@@ -1,0 +1,10 @@
+get rid of no-sound parts by filling in the system with rings more comprehensively
+  always have a couple rings moving by, or something
+  this will be subsumed in ...
+  
+do smarter ring creation.
+
+do complex strobe. Like, 2 or 3 strobe patterns that vary in weight according to mod(time) or something
+
+do a big one
+
