@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test042;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test045_nice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class AudioRenderer0 implements AudioRenderer{
   
   static final double 
     BASEFREQUENCYFACTOR=700,
-    DELTAEXPONENT=1.2,//1.6,
+    DELTAEXPONENT=1.0,//1.2,//1.6,
     CELLDELTACAP=19.0,//17.0//14.0
     STROBEDRONEFILTER=-1.0;//this gets rid of the strobe's influence upon the sound. We don't want it.
   

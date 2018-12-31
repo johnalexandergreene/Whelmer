@@ -62,6 +62,7 @@ public abstract class Ring_Simple implements Ring{
   /*
    * ################################
    * THICKNESS
+   * in terms of the whelmer span/2
    * ################################
    */
   

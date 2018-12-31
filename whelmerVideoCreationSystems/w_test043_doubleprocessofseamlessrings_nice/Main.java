@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test042;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test043_doubleprocessofseamlessrings_nice;
 
 import java.io.File;
 
@@ -25,7 +25,7 @@ public class Main{
   
   public static final void main(String[] a){
     Whelmer w=new Whelmer(
-      SIZE,DURATION,new Projector1(),
+      SIZE,DURATION,new Projector2(),
       listener,new File(WORKINGDIR),
       new VideoRenderer1(),new VideoExporter(),
       new AudioRenderer0(),new AudioExporter0()

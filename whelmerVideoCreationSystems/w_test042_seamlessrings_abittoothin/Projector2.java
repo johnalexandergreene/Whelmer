@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test042;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test042_seamlessrings_abittoothin;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,7 +11,7 @@ import org.fleen.whelmer.core.ring.Ring;
 import org.fleen.whelmer.core.ring.Ring_PureSine;
 import org.fleen.whelmer.core.ring.Ring_Simple;
 
-public class Projector1 implements Projector{
+public class Projector2 implements Projector{
 
   /*
    * ################################
@@ -44,25 +44,62 @@ public class Projector1 implements Projector{
   /*
    * ################################
    * CONDITIONALLY CREATE RINGS
+   * 2 seamless random flows, inward and outward.
+   * Random rings
+   * random periodic flows. Of arbitrary period and length.
    * ################################
    */
   
   Random random=new Random();
   static final double CREATIONPROBABILITY=0.03;
   
-  public void conditionallyCreateRings(){
-    double p=CREATIONPROBABILITY;
-    if(rings.size()<3){
-      p=1;
-    }else if(rings.size()>7)p=0;
-    if(random.nextDouble()<p){
-      rings.add(new Ring_PureSine(
-          whelmer,
-          getRandomDirection(),
-          getRandomSpeed(),
-          getRandomThickness(),
-          getRandomPolarity()));}}
+  static final double SEAMLESSSPEED=0.002;
   
+  int nextseamlessinward=0,nextseamlessoutward=0;
+  
+  public void conditionallyCreateRings(){
+    if(whelmer.time>nextseamlessinward)
+      createSeamlessInwardRing();
+    if(whelmer.time>nextseamlessoutward)
+      createSeamlessOutwardRing();
+    
+  }
+  
+  void createSeamlessInwardRing(){
+    Ring_PureSine r=new Ring_PureSine(
+      whelmer,
+      Ring_Simple.INWARD,
+      SEAMLESSSPEED,
+      getRandomThickness(),
+      getRandomPolarity());
+    nextseamlessinward=whelmer.time+(int)(r.thickness*(whelmer.getCellArraySpan()/2));
+    rings.add(r);}
+  
+  void createSeamlessOutwardRing(){
+    Ring_PureSine r=new Ring_PureSine(
+      whelmer,
+      Ring_Simple.OUTWARD,
+      SEAMLESSSPEED,
+      getRandomThickness(),
+      getRandomPolarity());
+    nextseamlessoutward=whelmer.time+(int)(r.thickness*(whelmer.getCellArraySpan()/2));
+    rings.add(r);}
+  
+  
+  
+//  public void conditionallyCreateRings(){
+//    double p=CREATIONPROBABILITY;
+//    if(rings.size()<3){
+//      p=1;
+//    }else if(rings.size()>7)p=0;
+//    if(random.nextDouble()<p){
+//      rings.add(new Ring_PureSine(
+//          whelmer,
+//          getRandomDirection(),
+//          getRandomSpeed(),
+//          getRandomThickness(),
+//          getRandomPolarity()));}}
+//  
   boolean getRandomDirection(){
     return random.nextBoolean();}
   

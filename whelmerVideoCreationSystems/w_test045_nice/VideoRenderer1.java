@@ -1,4 +1,4 @@
-package org.fleen.whelmer.whelmerVideoCreationSystems.w_test042;
+package org.fleen.whelmer.whelmerVideoCreationSystems.w_test045_nice;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
